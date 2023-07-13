@@ -37,7 +37,7 @@ func New(ctx context.Context, clientURL string) (*BeaconChain, error) {
 	return &BeaconChain{httpClient}, nil
 }
 
-func (b *BeaconChain) SubscribeToSlots(ctx context.Context) <-chan EpochResult {
+func (b *BeaconChain) SubscribeToEpochs(ctx context.Context) <-chan EpochResult {
 
 	var (
 		slotPerEpoch     uint64

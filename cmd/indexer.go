@@ -50,7 +50,7 @@ func main() {
 	}
 
 	// subscribe to incoming Epochs
-	epochStream := chain.SubscribeToSlots(ctx)
+	epochStream := chain.SubscribeToEpochs(ctx)
 	go func(ctx context.Context) {
 		for epochResult := range epochStream {
 			if epochResult.Error != nil {

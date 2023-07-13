@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  indexer_db:
+    image: postgres:13-alpine
+    container_name: indexer_db
+    restart: always
+    environment:
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_user_password
+      POSTGRES_DB: db
+    volumes:
+      - indexer_pg_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - indexer_network
+  riskharbor_app:
+    restart: always
+    depends_on:
+      - indexer_db
+    build: .
+    ports:
+      - 8080:8080
+    networks:
+      - indexer_network
+
+networks:
+  indexer_network:
+    driver: bridge
+
+volumes:
+  indexer_pg_volume:
